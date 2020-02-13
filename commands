@@ -1,11 +1,9 @@
-# docker-cmd
-
 
 ref-
 engine api - https://docs.docker.com/engine/api/v1.24/
 
 
-Docker commands
+#Docker commands
 
 docker info
 service docker status
@@ -24,17 +22,17 @@ docker container rm $( docker container ls –aq)  ==> store in list and delete
 docker container stop CONTAINERID 
 docker container kill CONTAINERID 
 docker container prune -f
-docekr container start CONTAINERID 
+docker container start CONTAINERID 
 docker run –d nginx   (d detached) 
 docker container run –it nginx /bin/bash
 docker container inspect CONTAINERID ==> find ip address
 docker container exec –it CONTAINERID /bin/bash  ==> install software
 ctrl p q ==> exit from container background running
-docker container run ubuntu sleep 30
+docker container run ubuntu sleep 30  --name xyz ==> name to container
 docker container run ubuntu cat /etc/os-release
 
 
-port mapping
+#port mapping
 docker container logs CONTAINERID 
 docker container run –d –p 300:80 nginx
 netstat –nltp
@@ -44,24 +42,31 @@ docker container attach CONTANERID
 docker container port “container-name”
 
 
-docker create
+#docker create
 docker container create ubuntu
 watch docker container diff CONTAINERID
 
-export
+#export
 docker container export CONTAINERID –o abc.tar
 docker image import abc.tar containerImage
 docker image save imagename > iamage.tar
 docker image load < image.tar
 
 
-push to docker hub
+#push to docker hub
 login to docker hub
 docker login
 docker images tag ubuntu  hub.docker.com/accountname/imagename/
 docker push imagename 
 
+#volume
+docker volume ls
+docker colume create volume1
+docker volume prune ==> delete all unused volume 
+docker volume rm volume1 (for more space and volume name)
+docker container run -itd -v(--volume) volumename:/var/lib/mysql mysql(imagename)  ==> volume available then transfer data or if volume not available will create
 
-
-
+#bind mount
+docker container run -it -v(--mount) /home/dhiraj/share:/tmp/test ubuntu bash
+docker container run -it --mount type=bind, sorce=/home/dhiraj/share, target=/tmp/test ubuntu bash
 
